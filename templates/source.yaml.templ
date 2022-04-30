@@ -1,0 +1,16 @@
+# Configuration for dkishylau/source-github
+# Documentation about this connector can be found at https://github.com/XIDProject/airbyte/blob/master/docs/integrations/sources/github.md
+resource_name: github_custom
+definition_type: source
+definition_id: ${SOURCE_DEFINITION_ID}
+definition_image: dkishylau/source-github
+definition_version: 0.2.29
+
+# EDIT THE CONFIGURATION BELOW!
+configuration:
+  repository: "XIDProject/*"
+  start_date: "2022-01-01T00:00:00Z" # REQUIRED | string | The date from which you'd like to replicate data from GitHub in the format YYYY-MM-DDT00:00:00Z. For the streams which support this configuration, only data generated on or after the start date will be replicated. This field doesn't apply to all streams, see the <a href="https://docs.airbyte.com/integrations/sources/github">docs</a> for more info | Example: 2021-03-01T00:00:00Z
+  credentials:
+    option_title: "PAT Credentials" # OPTIONAL | string
+    personal_access_token: ${GITHUB_PERSONAL_ACCESS_TOKEN} # SECRET (please store in environment variables) | REQUIRED | string | Log into GitHub and then generate a <a href="https://github.com/settings/tokens"> personal access token</a>. To load balance your API quota consumption across multiple API tokens, input multiple tokens separated with ","
+  page_size_for_large_streams: 10 # OPTIONAL | integer | The Github connector contains several streams with a large load. The page size of such streams depends on the size of your repository. Recommended to specify values between 10 and 30.

@@ -1,0 +1,19 @@
+# Configuration for airbyte/destination-bigquery
+# Documentation about this connector can be found at https://docs.airbyte.io/integrations/destinations/bigquery
+resource_name: bigquery
+definition_type: destination
+definition_id: 22f6c74f-5699-40ff-833c-4a879ea40133
+definition_image: airbyte/destination-bigquery
+definition_version: 1.1.1
+
+# EDIT THE CONFIGURATION BELOW!
+configuration:
+  dataset_id: projectx_github_test # REQUIRED | string | The default BigQuery Dataset ID that tables are replicated to if the source does not specify a namespace. Read more <a href="https://cloud.google.com/bigquery/docs/datasets#create-dataset">here</a>.
+  project_id: projectx-research # REQUIRED | string | The GCP project ID for the project containing the target BigQuery dataset. Read more <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects">here</a>.
+  loading_method:
+    ## -------- Pick one valid structure among the examples below: --------
+    method: "Standard" # REQUIRED | string
+  credentials_json: ${GCP_CREDENTIALS_JSON} # SECRET (please store in environment variables) | OPTIONAL | string | The contents of the JSON service account key. Check out the <a href="https://docs.airbyte.com/integrations/destinations/bigquery#service-account-key">docs</a> if you need help generating this key. Default credentials will be used if this field is left empty.
+  dataset_location: "US" # OPTIONAL | string | The location of the dataset. Warning: Changes made after creation will not be applied. The default "US" value is used if not set explicitly. Read more <a href="https://cloud.google.com/bigquery/docs/locations">here</a>.
+  transformation_priority: "interactive" # OPTIONAL | string | Interactive run type means that the query is executed as soon as possible, and these queries count towards concurrent rate limit and daily limit. Read more about interactive run type <a href="https://cloud.google.com/bigquery/docs/running-queries#queries">here</a>. Batch queries are queued and started as soon as idle resources are available in the BigQuery shared resource pool, which usually occurs within a few minutes. Batch queries don’t count towards your concurrent rate limit. Read more about batch queries <a href="https://cloud.google.com/bigquery/docs/running-queries#batch">here</a>. The default "interactive" value is used if not set explicitly.
+  big_query_client_buffer_size_mb: 15 # OPTIONAL | integer | Google BigQuery client's chunk (buffer) size (MIN=1, MAX = 15) for each table. The size that will be written by a single RPC. Written data will be buffered and only flushed upon reaching this size or closing the channel. The default 15MB value is used if not set explicitly. Read more <a href="https://googleapis.dev/python/bigquery/latest/generated/google.cloud.bigquery.client.Client.html">here</a>. | Example: 15
