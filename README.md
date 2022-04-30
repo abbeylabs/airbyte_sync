@@ -5,12 +5,14 @@ A combination of Docker and scripts to fully automate Airbyte pre-configured dat
 - Install Docker and docker-compose
 - Download this repo
 - In one shell:
-
-    cd airbyte_sync
-    docker-compose up
-
+```shell
+cd airbyte_sync
+docker-compose up
+```
   wait until the server is started on port 8000 (there will be fancy ascii art)
 
 - In the other shell:
-    cd airbyte_sync
-    bash ./configure_connection.sh
+```shell
+cd airbyte_sync
+bash ./configure_connection.sh
+```
