@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # ensure we have correct structure for configuration
 mkdir work_files
 mkdir work_files/config
@@ -29,6 +31,11 @@ then
         -H 'Content-Type: application/json' \
         -X POST \
         http://localhost:8000/api/v1/source_definitions/create > ./work_files/create_source_definition.json
+    if [ $? -ne 0 ]
+    then
+        echo "Failed to create github_custom source definition"
+        exit 1
+    fi
     cat ./work_files/create_source_definition.json | jq '.sourceDefinitionId' > ./work_files/source_definition_id
 else
     echo "Using existing github_custom source definition"
@@ -46,7 +53,18 @@ function octavia() {
 }
 # Now we need to run octavia and create/update source and destination
 octavia apply --force --file ./sources/github_custom/configuration.yaml
+if [ $? -ne 0 ]
+then
+    echo "Failed to create source"
+    exit 1
+fi
+
 octavia apply --force --file ./destinations/bigquery/configuration.yaml
+if [ $? -ne 0 ]
+then
+    echo "Failed to create destination"
+    exit 1
+fi
 
 # Extract source and destination identifiers so that we can use them in the connection file
 export SOURCE_ID=$(cat ./work_files/config/sources/github_custom/state.yaml | yq ".resource_id")
@@ -55,13 +73,24 @@ export DESTINATION_ID=$(cat ./work_files/config/destinations/bigquery/state.yaml
 # We also need to create an operation for connection
 # First, get workspace id
 export WORKSPACE_ID=$(curl -H 'Content-Type: application/json' -X POST http://localhost:8000/api/v1/workspaces/list | jq ".workspaces[0].workspaceId")
+if [ $? -ne 0 ]
+then
+    echo "Failed to get active workspace"
+    exit 1
+fi
 
 # Create an operation
 if [ ! -f ./work_files/operation_id ]
 then
     echo "Creating normalization operation"
     curl -d '{ "workspaceId": '${WORKSPACE_ID}', "name": "Normalization", "operatorConfiguration": {"operatorType": "normalization", "normalization": { "option": "basic"},"dbt": null}}' \
-    -H 'Content-Type: application/json' -X POST http://localhost:8000/api/v1/operations/create > ./work_files/operation_create.json
+        -H 'Content-Type: application/json' -X POST http://localhost:8000/api/v1/operations/create > ./work_files/operation_create.json
+    if [ $? -ne 0 ]
+    then
+        echo "Failed to create normalization operation"
+        exit 1
+    fi
+
     cat ./work_files/operation_create.json | jq ".operationId" > ./work_files/operation_id
 else
     echo "Using existing operation id"
@@ -70,6 +99,13 @@ fi
 export OPERATION_ID=$(cat ./work_files/operation_id)
 
 cat templates/connection.yaml.templ | envsubst '$SOURCE_ID $DESTINATION_ID $OPERATION_ID' > ./work_files/config/connections/github_to_bigquery/configuration.yaml
+
 octavia apply --force --file ./connections/github_to_bigquery/configuration.yaml
+octavia=''
+if [ $? -ne 0 ]
+then
+    echo "Failed to create connection configuration"
+    exit 1
+fi
 # Save connection id in a file, so that we can use it
 cat ./work_files/config/connections/github_to_bigquery/state.yaml | yq ".resource_id" > ./work_files/connection_id
