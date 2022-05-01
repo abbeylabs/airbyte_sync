@@ -73,8 +73,8 @@ export BIGQUERY_DATASET_ID=$(cat "${CONFIG_FILE}" | yq ".bigquery.dataset_id")
 export BIGQUERY_PROJECT_ID=$(cat "${CONFIG_FILE}" | yq ".bigquery.project_id")
 
 # Generate source and destination configs
-cat templates/source.yaml.templ | envsubst '$SOURCE_DEFINITION_ID $GITHUB_REPOSITORY $GITHUB_START_DATE' > ./work_files/config/sources/github_custom/configuration.yaml
-cat templates/destination.yaml.templ | envsubst '$BIGQUERY_DATASET_ID $BIGQUERY_PROJECT_ID' > ./work_files/config/destinations/bigquery/configuration.yaml
+cat templates/source.yaml.templ | envsubst '$SOURCE_DEFINITION_ID $GITHUB_REPOSITORY $GITHUB_START_DATE $GITHUB_PERSONAL_ACCESS_TOKEN' > ./work_files/config/sources/github_custom/configuration.yaml
+cat templates/destination.yaml.templ | envsubst '$BIGQUERY_DATASET_ID $BIGQUERY_PROJECT_ID $GCP_CREDENTIALS_JSON' > ./work_files/config/destinations/bigquery/configuration.yaml
 
 echo 'Running Octavia'
 function octavia() {
@@ -94,6 +94,9 @@ then
     echo "Failed to create destination"
     exit 1
 fi
+# Delete config files, because of secrets in them
+rm ./work_files/config/sources/github_custom/configuration.yaml
+rm ./work_files/config/destinations/bigquery/configuration.yaml
 
 # Extract source and destination identifiers so that we can use them in the connection file
 export SOURCE_ID=$(cat ./work_files/config/sources/github_custom/state.yaml | yq ".resource_id")
