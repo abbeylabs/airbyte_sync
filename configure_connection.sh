@@ -1,5 +1,30 @@
 #!/bin/bash
 
+# Check that config file exists
+CONFIG_FILE=$1
+if [ ! -f "${CONFIG_FILE}" ]
+then
+    echo 'Config file is required. Usage:'
+    echo '    bash ./configure_connection.sh <path to config.yml>'
+    echo 'See sample_config.yml'
+    exit 1
+else
+    echo "Config file: ${CONFIG_FILE}"
+fi
+
+# Let's check first that required variables with secrets are set
+if [ -z "${GITHUB_PERSONAL_ACCESS_TOKEN}" ]
+then
+    echo 'GITHUB_PERSONAL_ACCESS_TOKEN env variable is not set. Set it to personal access token created on Github'
+    exit 1
+fi
+
+if [ -z "${GCP_CREDENTIALS_JSON}" ]
+then
+    echo 'GCP_CREDENTIALS_JSON env variable is not set. Set it to json authentication file for GCP system account with write access to BigQuery'
+    exit 1
+fi
+
 # ensure we have correct structure for configuration
 mkdir work_files
 mkdir work_files/config
@@ -42,10 +67,14 @@ else
 fi
 
 export SOURCE_DEFINITION_ID=$(cat ./work_files/source_definition_id)
+export GITHUB_REPOSITORY=$(cat "${CONFIG_FILE}" | yq ".github.repository_filter")
+export GITHUB_START_DATE=$(cat "${CONFIG_FILE}" | yq ".github.start_date")
+export BIGQUERY_DATASET_ID=$(cat "${CONFIG_FILE}" | yq ".bigquery.dataset_id")
+export BIGQUERY_PROJECT_ID=$(cat "${CONFIG_FILE}" | yq ".bigquery.project_id")
 
 # Generate source and destination configs
-cat templates/source.yaml.templ | envsubst '$SOURCE_DEFINITION_ID' > ./work_files/config/sources/github_custom/configuration.yaml
-cat templates/destination.yaml.templ > ./work_files/config/destinations/bigquery/configuration.yaml
+cat templates/source.yaml.templ | envsubst '$SOURCE_DEFINITION_ID $GITHUB_REPOSITORY $GITHUB_START_DATE' > ./work_files/config/sources/github_custom/configuration.yaml
+cat templates/destination.yaml.templ | envsubst '$BIGQUERY_DATASET_ID $BIGQUERY_PROJECT_ID' > ./work_files/config/destinations/bigquery/configuration.yaml
 
 echo 'Running Octavia'
 function octavia() {
@@ -101,7 +130,7 @@ export OPERATION_ID=$(cat ./work_files/operation_id)
 cat templates/connection.yaml.templ | envsubst '$SOURCE_ID $DESTINATION_ID $OPERATION_ID' > ./work_files/config/connections/github_to_bigquery/configuration.yaml
 
 octavia apply --force --file ./connections/github_to_bigquery/configuration.yaml
-octavia=''
+
 if [ $? -ne 0 ]
 then
     echo "Failed to create connection configuration"

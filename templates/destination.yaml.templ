@@ -8,8 +8,8 @@ definition_version: 1.1.1
 
 # EDIT THE CONFIGURATION BELOW!
 configuration:
-  dataset_id: projectx_github_test # REQUIRED | string | The default BigQuery Dataset ID that tables are replicated to if the source does not specify a namespace. Read more <a href="https://cloud.google.com/bigquery/docs/datasets#create-dataset">here</a>.
-  project_id: projectx-research # REQUIRED | string | The GCP project ID for the project containing the target BigQuery dataset. Read more <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects">here</a>.
+  dataset_id: "${BIGQUERY_DATASET_ID}" # REQUIRED | string | The default BigQuery Dataset ID that tables are replicated to if the source does not specify a namespace. Read more <a href="https://cloud.google.com/bigquery/docs/datasets#create-dataset">here</a>.
+  project_id: "${BIGQUERY_PROJECT_ID}" # REQUIRED | string | The GCP project ID for the project containing the target BigQuery dataset. Read more <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects">here</a>.
   loading_method:
     ## -------- Pick one valid structure among the examples below: --------
     method: "Standard" # REQUIRED | string

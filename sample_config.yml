@@ -1,0 +1,6 @@
+github:
+  repository_filter: "XIDProject/*"
+  start_date: "2022-01-01T00:00:00Z"
+bigquery:
+  dataset_id: "projectx_github_test"
+  project_id: "projectx-research"
