@@ -6532,6 +6532,82 @@ configuration:
         aliasName: team_repositories
         selected: true
     - stream:
+        name: team_repository_permissions
+        jsonSchema:
+          type: object
+          "$schema": http://json-schema.org/draft-07/schema#
+          properties:
+            id:
+              type:
+              - 'null'
+              - integer
+            name:
+              type:
+              - 'null'
+              - string
+            node_id:
+              type:
+              - 'null'
+              - string
+            full_name:
+              type:
+              - 'null'
+              - string
+            role_name:
+              type:
+              - 'null'
+              - string
+            team_slug:
+              type: string
+            permissions:
+              type:
+              - 'null'
+              - object
+              properties:
+                pull:
+                  type:
+                  - 'null'
+                  - boolean
+                push:
+                  type:
+                  - 'null'
+                  - boolean
+                admin:
+                  type:
+                  - 'null'
+                  - boolean
+                triage:
+                  type:
+                  - 'null'
+                  - boolean
+                maintain:
+                  type:
+                  - 'null'
+                  - boolean
+            organization:
+              type: string
+            default_branch:
+              type:
+              - 'null'
+              - string
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - id
+        - - team_slug
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - id
+        - - team_slug
+        aliasName: team_repository_permissions
+        selected: true
+    - stream:
         name: teams
         jsonSchema:
           type: object
