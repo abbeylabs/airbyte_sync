@@ -34,7 +34,7 @@ mkdir -p work_files/config/connections/github_to_bigquery
 
 # Install jq and yq
 function jq() {
-    docker run -i stedolan/jq $@
+    docker run --rm -i stedolan/jq $@
 }
 function yq() {
   docker run --rm -i -v "${PWD}":/workdir mikefarah/yq "$@"
