@@ -13,7 +13,7 @@ A Google BigQuery instance with a specific project and dataset for this sync and
 ## How to run
 - If running on EC2, use `Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type` image with t2.medium instance type and 30GB of disk space.
   This instance type and disk space is what Airbyte recommends. The scripts will probably run on other image types as well, but you need to make sure that bash and `envsubst` are available.
-- Install Docker and docker-compose (see https://docs.airbyte.com/deploying-airbyte/on-aws-ec2#install-environment as an example)
+- Install Docker and docker-compose. See [this](https://docs.airbyte.com/deploying-airbyte/on-aws-ec2#install-environment) as an example.
 - Download this repo
 - Create config.yml to configure Github org/repository and BigQuery project and dataset ids (you can use sample_config.yml as an example)
 - In one shell:
