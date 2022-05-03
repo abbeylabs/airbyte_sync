@@ -1207,6 +1207,119 @@ configuration:
         aliasName: deployments
         selected: true
     - stream:
+        name: direct_collaborators
+        jsonSchema:
+          type: object
+          "$schema": http://json-schema.org/draft-07/schema#
+          properties:
+            id:
+              type:
+              - 'null'
+              - integer
+            url:
+              type:
+              - 'null'
+              - string
+            type:
+              type:
+              - 'null'
+              - string
+            login:
+              type:
+              - 'null'
+              - string
+            node_id:
+              type:
+              - 'null'
+              - string
+            html_url:
+              type:
+              - 'null'
+              - string
+            gists_url:
+              type:
+              - 'null'
+              - string
+            repos_url:
+              type:
+              - 'null'
+              - string
+            avatar_url:
+              type:
+              - 'null'
+              - string
+            events_url:
+              type:
+              - 'null'
+              - string
+            repository:
+              type:
+              - string
+            site_admin:
+              type:
+              - 'null'
+              - boolean
+            gravatar_id:
+              type:
+              - 'null'
+              - string
+            permissions:
+              type:
+              - 'null'
+              - object
+              properties:
+                pull:
+                  type:
+                  - 'null'
+                  - boolean
+                push:
+                  type:
+                  - 'null'
+                  - boolean
+                admin:
+                  type:
+                  - 'null'
+                  - boolean
+            starred_url:
+              type:
+              - 'null'
+              - string
+            followers_url:
+              type:
+              - 'null'
+              - string
+            following_url:
+              type:
+              - 'null'
+              - string
+            organizations_url:
+              type:
+              - 'null'
+              - string
+            subscriptions_url:
+              type:
+              - 'null'
+              - string
+            received_events_url:
+              type:
+              - 'null'
+              - string
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - id
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - id
+        aliasName: direct_collaborators
+        selected: true
+    - stream:
         name: events
         jsonSchema:
           type: object
@@ -2856,6 +2969,119 @@ configuration:
         primaryKey:
         - - id
         aliasName: organizations
+        selected: true
+    - stream:
+        name: outside_collaborators
+        jsonSchema:
+          type: object
+          "$schema": http://json-schema.org/draft-07/schema#
+          properties:
+            id:
+              type:
+              - 'null'
+              - integer
+            url:
+              type:
+              - 'null'
+              - string
+            type:
+              type:
+              - 'null'
+              - string
+            login:
+              type:
+              - 'null'
+              - string
+            node_id:
+              type:
+              - 'null'
+              - string
+            html_url:
+              type:
+              - 'null'
+              - string
+            gists_url:
+              type:
+              - 'null'
+              - string
+            repos_url:
+              type:
+              - 'null'
+              - string
+            avatar_url:
+              type:
+              - 'null'
+              - string
+            events_url:
+              type:
+              - 'null'
+              - string
+            repository:
+              type:
+              - string
+            site_admin:
+              type:
+              - 'null'
+              - boolean
+            gravatar_id:
+              type:
+              - 'null'
+              - string
+            permissions:
+              type:
+              - 'null'
+              - object
+              properties:
+                pull:
+                  type:
+                  - 'null'
+                  - boolean
+                push:
+                  type:
+                  - 'null'
+                  - boolean
+                admin:
+                  type:
+                  - 'null'
+                  - boolean
+            starred_url:
+              type:
+              - 'null'
+              - string
+            followers_url:
+              type:
+              - 'null'
+              - string
+            following_url:
+              type:
+              - 'null'
+              - string
+            organizations_url:
+              type:
+              - 'null'
+              - string
+            subscriptions_url:
+              type:
+              - 'null'
+              - string
+            received_events_url:
+              type:
+              - 'null'
+              - string
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - id
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - id
+        aliasName: outside_collaborators
         selected: true
     - stream:
         name: project_cards
@@ -6586,10 +6812,6 @@ configuration:
                   - boolean
             organization:
               type: string
-            default_branch:
-              type:
-              - 'null'
-              - string
         supportedSyncModes:
         - full_refresh
         sourceDefinedCursor:
