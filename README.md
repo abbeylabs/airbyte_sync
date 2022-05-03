@@ -4,7 +4,7 @@ This script leverages and extends the integration code from a provider called Ai
 
 You can find the integration code for the source Github [here](https://github.com/XIDProject/airbyte/tree/master/airbyte-integrations/connectors/source-github/source_github). You can find the integration code for our destination, BigQuery [here](https://github.com/XIDProject/airbyte/tree/master/airbyte-integrations/connectors/destination-bigquery). 
 
-# Precursors
+## Precursors
 
 A Github instance and a Personal Access Token. You can find more details about how to set up the Github connector [here](https://docs.airbyte.com/integrations/sources/github/), including the required scopes for the Personal Access Token. 
 A Google BigQuery instance with a specific project and dataset for this sync and a GoogleCloud service account. You can find more details about how to set up the BigQuery integration [here](https://docs.airbyte.com/integrations/destinations/bigquery/). 
