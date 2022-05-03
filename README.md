@@ -21,7 +21,7 @@ A Google BigQuery instance with a specific project and dataset for this sync and
 cd airbyte_sync
 docker-compose up
 ```
-  wait until the server is started on port 8000 (there will be fancy ascii art)
+  Wait until the server is started on port 8000 (there will be some fancy ascii art)
 
 - In the other shell:
 ```shell
@@ -34,4 +34,4 @@ Once it finishes, run
 ```shell
 bash ./sync_data.sh
 ```
-It'll kick off data sync. Data sync may take a while - watch the logs in the docker-compose to see the progress. By default, this sync is configured to run manually (it's not configured to run on a schedule). 
+It'll kick off the data sync. The data sync may take a while - watch the logs in the docker-compose to see the progress. By default, this sync is configured to run manually (it's not configured to run on a schedule). 
