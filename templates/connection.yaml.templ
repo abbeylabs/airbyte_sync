@@ -113,6 +113,52 @@ configuration:
         aliasName: assignees
         selected: true
     - stream:
+        name: audit_log
+        jsonSchema:
+          type: object
+          "$schema": http://json-schema.org/draft-07/schema#
+          properties:
+            action:
+              type:
+              - string
+            organization:
+              type:
+              - string
+            created_at:
+              type:
+              - 'null'
+              - string
+              format: date-time
+            actor:
+              type:
+              - 'null'
+              - integer
+            user:
+              type:
+              - 'null'
+              - string
+            _document_id:
+              type:
+              - string
+            event_json:
+              type:
+              - string
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - _document_id
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - _document_id
+        aliasName: audit_log
+        selected: true
+    - stream:
         name: branches
         jsonSchema:
           type: object
