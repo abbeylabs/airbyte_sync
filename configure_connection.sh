@@ -52,7 +52,7 @@ echo "OCTAVIA_ENABLE_TELEMETRY=False" > ~/.octavia
 if [ ! -f ./work_files/source_definition_id ]
 then
     echo "Creating github_custom source definition"
-    curl -d '{ "name": "github_custom", "dockerRepository": "dkishylau/source-github", "dockerImageTag": "0.2.31", "documentationUrl": "http://example.com"}' \
+    curl -d '{ "name": "github_custom", "dockerRepository": "dkishylau/source-github", "dockerImageTag": "0.2.32", "documentationUrl": "http://example.com"}' \
         -H 'Content-Type: application/json' \
         -X POST \
         http://localhost:8000/api/v1/source_definitions/create > ./work_files/create_source_definition.json
