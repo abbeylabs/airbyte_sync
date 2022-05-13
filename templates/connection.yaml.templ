@@ -7801,6 +7801,192 @@ configuration:
         - - id
         aliasName: workflows
         selected: true
+    - stream:
+        name: deploy_keys
+        jsonSchema:
+          type:
+          - 'null'
+          - object
+          "$schema": http://json-schema.org/draft-04/schema#
+          properties:
+            id:
+              type: integer
+            key:
+              type: string
+            url:
+              type: string
+            title:
+              type:
+              - 'null'
+              - string
+            verified:
+              type:
+              - 'null'
+              - boolean
+            created_at:
+              type:
+              - 'null'
+              - string
+              format: date-time
+            read_only:
+              type:
+              - 'null'
+              - boolean
+            repository:
+              type: string
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - id
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - id
+        aliasName: deploy_keys
+        selected: true
+    - stream:
+        name: repository_action_secrets
+        jsonSchema:
+          type:
+          - 'null'
+          - object
+          "$schema": http://json-schema.org/draft-04/schema#
+          properties:
+            name:
+              type:
+              - string
+            created_at:
+              type:
+              - 'null'
+              - string
+              format: date-time
+            updated_at:
+              type:
+              - 'null'
+              - string
+              format: date-time
+            repository:
+              type:
+              - string
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - repository
+        - - name
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - repository
+        - - name
+        aliasName: repository_action_secrets
+        selected: true
+    - stream:
+        name: organization_action_secrets
+        jsonSchema:
+          type:
+          - 'null'
+          - object
+          "$schema": http://json-schema.org/draft-04/schema#
+          properties:
+            name:
+              type:
+              - string
+            created_at:
+              type:
+              - 'null'
+              - string
+              format: date-time
+            updated_at:
+              type:
+              - 'null'
+              - string
+              format: date-time
+            visibility:
+              type:
+              - string
+            organization:
+              type:
+              - string
+            selected_repositories_url:
+              type:
+              - 'null'
+              - string
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - organization
+        - - name
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - organization
+        - - name
+        aliasName: organization_action_secrets
+        selected: true
+    - stream:
+        name: organization_secret_selected_repositories
+        jsonSchema:
+          type:
+          - 'null'
+          - object
+          "$schema": http://json-schema.org/draft-04/schema#
+          properties:
+            id:
+              type:
+              - integer
+            node_id:
+              type:
+              - 'null'
+              - string
+            name:
+              type:
+              - string
+            full_name:
+              type:
+              - string
+            private:
+              type:
+              - boolean
+            organization:
+              type:
+              - string
+            secret_name:
+              type:
+              - string
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - organization
+        - - secret_name
+        - - id
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - organization
+        - - secret_name
+        - - id
+        aliasName: organization_secret_selected_repositories
+        selected: true
   schedule:
   status: active
   resourceRequirements:
