@@ -157,6 +157,930 @@ configuration:
         aliasName: audit_log
         selected: true
     - stream:
+        name: branch_protections
+        jsonSchema:
+          type: object
+          title: Branch Protection
+          "$schema": http://json-schema.org/draft-07/schema#
+          properties:
+            url:
+              type: string
+            name:
+              type: string
+              examples:
+              - '"branch/with/protection"'
+            enabled:
+              type: boolean
+            repository:
+              type: string
+            branch_name:
+              type: string
+            restrictions:
+              type: object
+              title: Branch Restriction Policy
+              required:
+              - url
+              - users_url
+              - teams_url
+              - apps_url
+              - users
+              - teams
+              - apps
+              properties:
+                url:
+                  type: string
+                  format: uri
+                apps:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      slug:
+                        type: string
+                      owner:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          url:
+                            type: string
+                          type:
+                            type: string
+                            examples:
+                            - '"Organization"'
+                          login:
+                            type: string
+                          node_id:
+                            type: string
+                          html_url:
+                            type: string
+                            examples:
+                            - '"https://github.com/testorg-ea8ec76d71c3af4b"'
+                          gists_url:
+                            type: string
+                            examples:
+                            - '"https://api.github.com/users/testorg-ea8ec76d71c3af4b/gists{/gist_id}"'
+                          hooks_url:
+                            type: string
+                          repos_url:
+                            type: string
+                          avatar_url:
+                            type: string
+                          events_url:
+                            type: string
+                          issues_url:
+                            type: string
+                          site_admin:
+                            type: boolean
+                            examples:
+                            - false
+                          description:
+                            type: string
+                          gravatar_id:
+                            type: string
+                            examples:
+                            - '""'
+                          members_url:
+                            type: string
+                          starred_url:
+                            type: string
+                            examples:
+                            - '"https://api.github.com/users/testorg-ea8ec76d71c3af4b/starred{/owner}{/repo}"'
+                          followers_url:
+                            type: string
+                            examples:
+                            - '"https://api.github.com/users/testorg-ea8ec76d71c3af4b/followers"'
+                          following_url:
+                            type: string
+                            examples:
+                            - '"https://api.github.com/users/testorg-ea8ec76d71c3af4b/following{/other_user}"'
+                          organizations_url:
+                            type: string
+                            examples:
+                            - '"https://api.github.com/users/testorg-ea8ec76d71c3af4b/orgs"'
+                          subscriptions_url:
+                            type: string
+                            examples:
+                            - '"https://api.github.com/users/testorg-ea8ec76d71c3af4b/subscriptions"'
+                          public_members_url:
+                            type: string
+                          received_events_url:
+                            type: string
+                            examples:
+                            - '"https://api.github.com/users/testorg-ea8ec76d71c3af4b/received_events"'
+                      events:
+                        type: array
+                        items:
+                          type: string
+                      node_id:
+                        type: string
+                      html_url:
+                        type: string
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+                      description:
+                        type: string
+                      permissions:
+                        type: object
+                        properties:
+                          issues:
+                            type: string
+                          contents:
+                            type: string
+                          metadata:
+                            type: string
+                          single_file:
+                            type: string
+                      external_url:
+                        type: string
+                teams:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      url:
+                        type: string
+                      name:
+                        type: string
+                      slug:
+                        type: string
+                      parent:
+                        type:
+                        - string
+                        - 'null'
+                      node_id:
+                        type: string
+                      privacy:
+                        type: string
+                      html_url:
+                        type: string
+                      permission:
+                        type: string
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                      members_url:
+                        type: string
+                      repositories_url:
+                        type: string
+                users:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      url:
+                        type: string
+                      type:
+                        type: string
+                      login:
+                        type: string
+                      node_id:
+                        type: string
+                      html_url:
+                        type: string
+                      gists_url:
+                        type: string
+                      repos_url:
+                        type: string
+                      avatar_url:
+                        type: string
+                      events_url:
+                        type: string
+                      site_admin:
+                        type: boolean
+                      gravatar_id:
+                        type: string
+                      starred_url:
+                        type: string
+                      followers_url:
+                        type: string
+                      following_url:
+                        type: string
+                      organizations_url:
+                        type: string
+                      subscriptions_url:
+                        type: string
+                      received_events_url:
+                        type: string
+                apps_url:
+                  type: string
+                  format: uri
+                teams_url:
+                  type: string
+                  format: uri
+                users_url:
+                  type: string
+                  format: uri
+              description: Branch Restriction Policy
+            enforce_admins:
+              type: object
+              title: Protected Branch Admin Enforced
+              required:
+              - url
+              - enabled
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  examples:
+                  - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/enforce_admins
+                enabled:
+                  type: boolean
+                  examples:
+                  - true
+              description: Protected Branch Admin Enforced
+            protection_url:
+              type: string
+              examples:
+              - '"https://api.github.com/repos/owner-79e94e2d36b3fd06a32bb213/AAA_Public_Repo/branches/branch/with/protection/protection"'
+            allow_deletions:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+            block_creations:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+            allow_force_pushes:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+            required_signatures:
+              type: object
+              required:
+              - url
+              - enabled
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  examples:
+                  - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_signatures
+                enabled:
+                  type: boolean
+                  examples:
+                  - true
+            required_status_checks:
+              type: object
+              title: Protected Branch Required Status Check
+              required:
+              - contexts
+              - checks
+              properties:
+                url:
+                  type: string
+                checks:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - context
+                    - app_id
+                    properties:
+                      app_id:
+                        type:
+                        - integer
+                        - 'null'
+                      context:
+                        type: string
+                strict:
+                  type: boolean
+                contexts:
+                  type: array
+                  items:
+                    type: string
+                contexts_url:
+                  type: string
+                enforcement_level:
+                  type: string
+              description: Protected Branch Required Status Check
+            required_linear_history:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+            required_pull_request_reviews:
+              type: object
+              title: Protected Branch Pull Request Review
+              required:
+              - dismiss_stale_reviews
+              - require_code_owner_reviews
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  examples:
+                  - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/dismissal_restrictions
+                dismiss_stale_reviews:
+                  type: boolean
+                  examples:
+                  - true
+                dismissal_restrictions:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      examples:
+                      - '"https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions"'
+                    teams:
+                      type: array
+                      items:
+                        type: object
+                        title: Team
+                        required:
+                        - id
+                        - node_id
+                        - url
+                        - members_url
+                        - name
+                        - description
+                        - permission
+                        - html_url
+                        - repositories_url
+                        - slug
+                        - parent
+                        properties:
+                          id:
+                            type: integer
+                          url:
+                            type: string
+                            format: uri
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                          parent:
+                            anyOf:
+                            - type: 'null'
+                            - type: object
+                              title: Team Simple
+                              required:
+                              - id
+                              - node_id
+                              - url
+                              - members_url
+                              - name
+                              - description
+                              - permission
+                              - html_url
+                              - repositories_url
+                              - slug
+                              properties:
+                                id:
+                                  type: integer
+                                  examples:
+                                  - 1
+                                  description: Unique identifier of the team
+                                url:
+                                  type: string
+                                  format: uri
+                                  examples:
+                                  - https://api.github.com/organizations/1/team/1
+                                  description: URL for the team
+                                name:
+                                  type: string
+                                  examples:
+                                  - Justice League
+                                  description: Name of the team
+                                slug:
+                                  type: string
+                                  examples:
+                                  - justice-league
+                                ldap_dn:
+                                  type: string
+                                  examples:
+                                  - uid=example,ou=users,dc=github,dc=com
+                                  description: Distinguished Name (DN) that team maps to
+                                    within LDAP environment
+                                node_id:
+                                  type: string
+                                  examples:
+                                  - MDQ6VGVhbTE=
+                                privacy:
+                                  type: string
+                                  examples:
+                                  - closed
+                                  description: The level of privacy this team should have
+                                html_url:
+                                  type: string
+                                  format: uri
+                                  examples:
+                                  - https://github.com/orgs/rails/teams/core
+                                permission:
+                                  type: string
+                                  examples:
+                                  - admin
+                                  description: Permission that the team will have for its
+                                    repositories
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  examples:
+                                  - A great team.
+                                  description: Description of the team
+                                members_url:
+                                  type: string
+                                  examples:
+                                  - https://api.github.com/organizations/1/team/1/members{/member}
+                                repositories_url:
+                                  type: string
+                                  format: uri
+                                  examples:
+                                  - https://api.github.com/organizations/1/team/1/repos
+                              description: Groups of organization members that gives permissions
+                                on specified repositories.
+                          node_id:
+                            type: string
+                          privacy:
+                            type: string
+                          html_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://github.com/orgs/rails/teams/core
+                          permission:
+                            type: string
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                          members_url:
+                            type: string
+                          permissions:
+                            type: object
+                            required:
+                            - pull
+                            - triage
+                            - push
+                            - maintain
+                            - admin
+                            properties:
+                              pull:
+                                type: boolean
+                              push:
+                                type: boolean
+                              admin:
+                                type: boolean
+                              triage:
+                                type: boolean
+                              maintain:
+                                type: boolean
+                          repositories_url:
+                            type: string
+                            format: uri
+                        description: Groups of organization members that gives permissions
+                          on specified repositories.
+                      description: The list of teams with review dismissal access.
+                    users:
+                      type: array
+                      items:
+                        type: object
+                        title: Simple User
+                        required:
+                        - avatar_url
+                        - events_url
+                        - followers_url
+                        - following_url
+                        - gists_url
+                        - gravatar_id
+                        - html_url
+                        - id
+                        - node_id
+                        - login
+                        - organizations_url
+                        - received_events_url
+                        - repos_url
+                        - site_admin
+                        - starred_url
+                        - subscriptions_url
+                        - type
+                        - url
+                        properties:
+                          id:
+                            type: integer
+                            examples:
+                            - 1
+                          url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat
+                          name:
+                            type:
+                            - string
+                            - 'null'
+                          type:
+                            type: string
+                            examples:
+                            - User
+                          email:
+                            type:
+                            - string
+                            - 'null'
+                          login:
+                            type: string
+                            examples:
+                            - octocat
+                          node_id:
+                            type: string
+                            examples:
+                            - MDQ6VXNlcjE=
+                          html_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://github.com/octocat
+                          gists_url:
+                            type: string
+                            examples:
+                            - https://api.github.com/users/octocat/gists{/gist_id}
+                          repos_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/repos
+                          avatar_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://github.com/images/error/octocat_happy.gif
+                          events_url:
+                            type: string
+                            examples:
+                            - https://api.github.com/users/octocat/events{/privacy}
+                          site_admin:
+                            type: boolean
+                          starred_at:
+                            type: string
+                            examples:
+                            - '"2020-07-09T00:17:55Z"'
+                          gravatar_id:
+                            type:
+                            - string
+                            - 'null'
+                            examples:
+                            - 41d064eb2195891e12d0413f63227ea7
+                          starred_url:
+                            type: string
+                            examples:
+                            - https://api.github.com/users/octocat/starred{/owner}{/repo}
+                          followers_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/followers
+                          following_url:
+                            type: string
+                            examples:
+                            - https://api.github.com/users/octocat/following{/other_user}
+                          organizations_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/orgs
+                          subscriptions_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/subscriptions
+                          received_events_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/received_events
+                        description: Simple User
+                      description: The list of users with review dismissal access.
+                    teams_url:
+                      type: string
+                      examples:
+                      - '"https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/teams"'
+                    users_url:
+                      type: string
+                      examples:
+                      - '"https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/users"'
+                require_code_owner_reviews:
+                  type: boolean
+                  examples:
+                  - true
+                bypass_pull_request_allowances:
+                  type: object
+                  properties:
+                    teams:
+                      type: array
+                      items:
+                        type: object
+                        title: Team
+                        required:
+                        - id
+                        - node_id
+                        - url
+                        - members_url
+                        - name
+                        - description
+                        - permission
+                        - html_url
+                        - repositories_url
+                        - slug
+                        - parent
+                        properties:
+                          id:
+                            type: integer
+                          url:
+                            type: string
+                            format: uri
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                          parent:
+                            anyOf:
+                            - type: 'null'
+                            - type: object
+                              title: Team Simple
+                              required:
+                              - id
+                              - node_id
+                              - url
+                              - members_url
+                              - name
+                              - description
+                              - permission
+                              - html_url
+                              - repositories_url
+                              - slug
+                              properties:
+                                id:
+                                  type: integer
+                                  examples:
+                                  - 1
+                                  description: Unique identifier of the team
+                                url:
+                                  type: string
+                                  format: uri
+                                  examples:
+                                  - https://api.github.com/organizations/1/team/1
+                                  description: URL for the team
+                                name:
+                                  type: string
+                                  examples:
+                                  - Justice League
+                                  description: Name of the team
+                                slug:
+                                  type: string
+                                  examples:
+                                  - justice-league
+                                ldap_dn:
+                                  type: string
+                                  examples:
+                                  - uid=example,ou=users,dc=github,dc=com
+                                  description: Distinguished Name (DN) that team maps to
+                                    within LDAP environment
+                                node_id:
+                                  type: string
+                                  examples:
+                                  - MDQ6VGVhbTE=
+                                privacy:
+                                  type: string
+                                  examples:
+                                  - closed
+                                  description: The level of privacy this team should have
+                                html_url:
+                                  type: string
+                                  format: uri
+                                  examples:
+                                  - https://github.com/orgs/rails/teams/core
+                                permission:
+                                  type: string
+                                  examples:
+                                  - admin
+                                  description: Permission that the team will have for its
+                                    repositories
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  examples:
+                                  - A great team.
+                                  description: Description of the team
+                                members_url:
+                                  type: string
+                                  examples:
+                                  - https://api.github.com/organizations/1/team/1/members{/member}
+                                repositories_url:
+                                  type: string
+                                  format: uri
+                                  examples:
+                                  - https://api.github.com/organizations/1/team/1/repos
+                              description: Groups of organization members that gives permissions
+                                on specified repositories.
+                          node_id:
+                            type: string
+                          privacy:
+                            type: string
+                          html_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://github.com/orgs/rails/teams/core
+                          permission:
+                            type: string
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                          members_url:
+                            type: string
+                          permissions:
+                            type: object
+                            required:
+                            - pull
+                            - triage
+                            - push
+                            - maintain
+                            - admin
+                            properties:
+                              pull:
+                                type: boolean
+                              push:
+                                type: boolean
+                              admin:
+                                type: boolean
+                              triage:
+                                type: boolean
+                              maintain:
+                                type: boolean
+                          repositories_url:
+                            type: string
+                            format: uri
+                        description: Groups of organization members that gives permissions
+                          on specified repositories.
+                      description: The list of teams allowed to bypass pull request requirements.
+                    users:
+                      type: array
+                      items:
+                        type: object
+                        title: Simple User
+                        required:
+                        - avatar_url
+                        - events_url
+                        - followers_url
+                        - following_url
+                        - gists_url
+                        - gravatar_id
+                        - html_url
+                        - id
+                        - node_id
+                        - login
+                        - organizations_url
+                        - received_events_url
+                        - repos_url
+                        - site_admin
+                        - starred_url
+                        - subscriptions_url
+                        - type
+                        - url
+                        properties:
+                          id:
+                            type: integer
+                            examples:
+                            - 1
+                          url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat
+                          name:
+                            type:
+                            - string
+                            - 'null'
+                          type:
+                            type: string
+                            examples:
+                            - User
+                          email:
+                            type:
+                            - string
+                            - 'null'
+                          login:
+                            type: string
+                            examples:
+                            - octocat
+                          node_id:
+                            type: string
+                            examples:
+                            - MDQ6VXNlcjE=
+                          html_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://github.com/octocat
+                          gists_url:
+                            type: string
+                            examples:
+                            - https://api.github.com/users/octocat/gists{/gist_id}
+                          repos_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/repos
+                          avatar_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://github.com/images/error/octocat_happy.gif
+                          events_url:
+                            type: string
+                            examples:
+                            - https://api.github.com/users/octocat/events{/privacy}
+                          site_admin:
+                            type: boolean
+                          starred_at:
+                            type: string
+                            examples:
+                            - '"2020-07-09T00:17:55Z"'
+                          gravatar_id:
+                            type:
+                            - string
+                            - 'null'
+                            examples:
+                            - 41d064eb2195891e12d0413f63227ea7
+                          starred_url:
+                            type: string
+                            examples:
+                            - https://api.github.com/users/octocat/starred{/owner}{/repo}
+                          followers_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/followers
+                          following_url:
+                            type: string
+                            examples:
+                            - https://api.github.com/users/octocat/following{/other_user}
+                          organizations_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/orgs
+                          subscriptions_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/subscriptions
+                          received_events_url:
+                            type: string
+                            format: uri
+                            examples:
+                            - https://api.github.com/users/octocat/received_events
+                        description: Simple User
+                      description: The list of users allowed to bypass pull request requirements.
+                  description: Allow specific users or teams to bypass pull request requirements.
+                required_approving_review_count:
+                  type: integer
+                  maximum: 6
+                  minimum: 0
+                  examples:
+                  - 2
+              description: Protected Branch Pull Request Review
+            required_conversation_resolution:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+          description: Branch Protection
+        supportedSyncModes:
+        - full_refresh
+        sourceDefinedCursor:
+        defaultCursorField: []
+        sourceDefinedPrimaryKey:
+        - - repository
+        - - branch_name
+        namespace:
+      config:
+        syncMode: full_refresh
+        cursorField: []
+        destinationSyncMode: append
+        primaryKey:
+        - - repository
+        - - branch_name
+        aliasName: branch_protections
+        selected: true
+    - stream:
         name: branches
         jsonSchema:
           type: object
