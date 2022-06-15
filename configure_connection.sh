@@ -49,22 +49,22 @@ cat ./docker-compose.yml | yq '.version'
 echo "OCTAVIA_ENABLE_TELEMETRY=False" > ~/.octavia
 
 # First, we need to get the id of source definition
-if [ ! -f ./work_files/source_definition_id ]
-then
-    echo "Creating github_custom source definition"
-    curl -d '{ "name": "github_custom", "dockerRepository": "dkishylau/source-github", "dockerImageTag": "0.2.35", "documentationUrl": "http://example.com"}' \
-        -H 'Content-Type: application/json' \
-        -X POST \
-        http://localhost:8000/api/v1/source_definitions/create > ./work_files/create_source_definition.json
-    if [ $? -ne 0 ]
-    then
-        echo "Failed to create github_custom source definition"
-        exit 1
-    fi
-    cat ./work_files/create_source_definition.json | jq '.sourceDefinitionId' > ./work_files/source_definition_id
-else
-    echo "Using existing github_custom source definition"
-fi
+#if [ ! -f ./work_files/source_definition_id ]
+#then
+#    echo "Creating github_custom source definition"
+#    curl -d '{ "name": "github_custom", "dockerRepository": "dkishylau/source-github", "dockerImageTag": "0.2.35", "documentationUrl": "http://example.com"}' \
+#        -H 'Content-Type: application/json' \
+#        -X POST \
+#        http://localhost:8000/api/v1/source_definitions/create > ./work_files/create_source_definition.json
+#    if [ $? -ne 0 ]
+#    then
+#        echo "Failed to create github_custom source definition"
+#        exit 1
+#    fi
+#    cat ./work_files/create_source_definition.json | jq '.sourceDefinitionId' > ./work_files/source_definition_id
+#else
+#    echo "Using existing github_custom source definition"
+#fi
 
 export SOURCE_DEFINITION_ID=$(cat ./work_files/source_definition_id)
 export GITHUB_REPOSITORY=$(cat "${CONFIG_FILE}" | yq ".github.repository_filter")
