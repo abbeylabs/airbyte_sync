@@ -28,7 +28,7 @@ fi
 # ensure we have correct structure for configuration
 mkdir work_files
 mkdir work_files/config
-mkdir -p work_files/config/sources/github_custom
+mkdir -p work_files/config/sources/github
 mkdir -p work_files/config/destinations/bigquery
 mkdir -p work_files/config/connections/github_to_bigquery
 
@@ -51,29 +51,29 @@ echo "OCTAVIA_ENABLE_TELEMETRY=False" > ~/.octavia
 # First, we need to get the id of source definition
 #if [ ! -f ./work_files/source_definition_id ]
 #then
-#    echo "Creating github_custom source definition"
-#    curl -d '{ "name": "github_custom", "dockerRepository": "dkishylau/source-github", "dockerImageTag": "0.2.35", "documentationUrl": "http://example.com"}' \
+#    echo "Creating github source definition"
+#    curl -d '{ "name": "github", "dockerRepository": "dkishylau/source-github", "dockerImageTag": "0.2.35", "documentationUrl": "http://example.com"}' \
 #        -H 'Content-Type: application/json' \
 #        -X POST \
 #        http://localhost:8000/api/v1/source_definitions/create > ./work_files/create_source_definition.json
 #    if [ $? -ne 0 ]
 #    then
-#        echo "Failed to create github_custom source definition"
+#        echo "Failed to create github source definition"
 #        exit 1
 #    fi
 #    cat ./work_files/create_source_definition.json | jq '.sourceDefinitionId' > ./work_files/source_definition_id
 #else
-#    echo "Using existing github_custom source definition"
+#    echo "Using existing github source definition"
 #fi
 
-export SOURCE_DEFINITION_ID=$(cat ./work_files/source_definition_id)
+#export SOURCE_DEFINITION_ID=$(cat ./work_files/source_definition_id)
 export GITHUB_REPOSITORY=$(cat "${CONFIG_FILE}" | yq ".github.repository_filter")
 export GITHUB_START_DATE=$(cat "${CONFIG_FILE}" | yq ".github.start_date")
 export BIGQUERY_DATASET_ID=$(cat "${CONFIG_FILE}" | yq ".bigquery.dataset_id")
 export BIGQUERY_PROJECT_ID=$(cat "${CONFIG_FILE}" | yq ".bigquery.project_id")
 
 # Generate source and destination configs
-cat templates/source.yaml.templ | envsubst '$SOURCE_DEFINITION_ID $GITHUB_REPOSITORY $GITHUB_START_DATE $GITHUB_PERSONAL_ACCESS_TOKEN' > ./work_files/config/sources/github_custom/configuration.yaml
+cat templates/source.yaml.templ | envsubst '$GITHUB_REPOSITORY $GITHUB_START_DATE $GITHUB_PERSONAL_ACCESS_TOKEN' > ./work_files/config/sources/github/configuration.yaml
 cat templates/destination.yaml.templ | envsubst '$BIGQUERY_DATASET_ID $BIGQUERY_PROJECT_ID $GCP_CREDENTIALS_JSON' > ./work_files/config/destinations/bigquery/configuration.yaml
 
 echo 'Running Octavia'
@@ -81,7 +81,7 @@ function octavia() {
     docker run -i --rm -v $(pwd)/work_files/config:/home/octavia-project --network host --env-file ~/.octavia --user $(id -u):$(id -g) airbyte/octavia-cli:0.36.4-alpha $@
 }
 # Now we need to run octavia and create/update source and destination
-octavia apply --force --file ./sources/github_custom/configuration.yaml
+octavia apply --force --file ./sources/github/configuration.yaml
 if [ $? -ne 0 ]
 then
     echo "Failed to create source"
@@ -95,11 +95,11 @@ then
     exit 1
 fi
 # Delete config files, because of secrets in them
-rm ./work_files/config/sources/github_custom/configuration.yaml
+rm ./work_files/config/sources/github/configuration.yaml
 rm ./work_files/config/destinations/bigquery/configuration.yaml
 
 # Extract source and destination identifiers so that we can use them in the connection file
-export SOURCE_ID=$(cat ./work_files/config/sources/github_custom/state.yaml | yq ".resource_id")
+export SOURCE_ID=$(cat ./work_files/config/sources/github/state.yaml | yq ".resource_id")
 export DESTINATION_ID=$(cat ./work_files/config/destinations/bigquery/state.yaml | yq ".resource_id")
 
 # We also need to create an operation for connection
