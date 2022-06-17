@@ -21,8 +21,13 @@ A Google BigQuery instance with a specific project and dataset for this sync and
 cd airbyte_sync
 docker-compose up
 ```
-  Wait until the server is started on port 8000 (there will be some fancy ascii art)
-
+- Wait until the server is started on port 8000 (there will be some fancy ascii art)
+- Login to Airbyte
+- Make sure following scopes are selected for provided Github Personal Access Token:
+```shell
+repo, read:org, read:repo_hook, read:user, read:discussion, workflow
+```
+For further information about scopes and permissions: https://docs.airbyte.com/integrations/sources/github#permissions-and-scopes
 - In the other shell:
 ```shell
 export GITHUB_PERSONAL_ACCESS_TOKEN=<your Github PAK>
