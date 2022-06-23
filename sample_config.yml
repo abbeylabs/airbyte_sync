@@ -1,5 +1,5 @@
 github:
-  repository_filter: "XIDProject/*"
+  repository_filter: "abbeylabs/*"
   start_date: "2022-01-01T00:00:00Z"
 bigquery:
   dataset_id: "projectx_github_test"
