@@ -1,24 +1,24 @@
 # Configuration for connection extend_github_to_bigquery
 definition_type: connection
 resource_name: extend_github_to_bigquery
-source_id: ${SOURCE_ID}
-destination_id: ${DESTINATION_ID}
+source_configuration_path: ./sources/github_custom/configuration.yaml
+destination_configuration_path: ./destinations/bigquery/configuration.yaml
 
 # EDIT THE CONFIGURATION BELOW!
 configuration:
   sourceId: ${SOURCE_ID}
   destinationId: ${DESTINATION_ID}
-  name: extend_github_to_bigquery
-  namespaceDefinition: source
-  namespaceFormat: "${SOURCE_NAMESPACE}"
+#  name: extend_github_to_bigquery
+  namespace_definition: source
+  namespace_format: "${SOURCE_NAMESPACE}"
   prefix: ''
   operationIds:
   - ${OPERATION_ID}
-  syncCatalog:
+  sync_catalog:
     streams:
     - stream:
         name: assignees
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -97,24 +97,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: assignees
+        alias_name: assignees
         selected: true
     - stream:
         name: audit_log
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -141,24 +140,23 @@ configuration:
             event_json:
               type:
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - _document_id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - _document_id
-        aliasName: audit_log
+        alias_name: audit_log
         selected: true
     - stream:
         name: branch_protections
-        jsonSchema:
+        json_schema:
           type: object
           title: Branch Protection
           "$schema": http://json-schema.org/draft-07/schema#
@@ -1063,26 +1061,25 @@ configuration:
                 enabled:
                   type: boolean
           description: Branch Protection
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - repository
         - - branch_name
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - repository
         - - branch_name
-        aliasName: branch_protections
+        alias_name: branch_protections
         selected: true
     - stream:
         name: branches
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -1136,26 +1133,25 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - repository
         - - name
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - repository
         - - name
-        aliasName: branches
+        alias_name: branches
         selected: true
     - stream:
         name: collaborators
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -1251,24 +1247,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: collaborators
+        alias_name: collaborators
         selected: true
     - stream:
         name: comments
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -1394,27 +1389,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: comments
+        alias_name: comments
         selected: true
     - stream:
         name: commit_comment_reactions
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -1517,24 +1511,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: commit_comment_reactions
+        alias_name: commit_comment_reactions
         selected: true
     - stream:
         name: commit_comments
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -1668,27 +1661,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: commit_comments
+        alias_name: commit_comments
         selected: true
     - stream:
         name: commits
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -1982,27 +1974,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - created_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - sha
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - created_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - sha
-        aliasName: commits
+        alias_name: commits
         selected: true
     - stream:
         name: deployments
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -2156,27 +2147,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: deployments
+        alias_name: deployments
         selected: true
     - stream:
         name: direct_collaborators
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -2272,24 +2262,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: direct_collaborators
+        alias_name: direct_collaborators
         selected: true
     - stream:
         name: events
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -2436,27 +2425,26 @@ configuration:
             repository:
               type:
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - created_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - created_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: events
+        alias_name: events
         selected: true
     - stream:
         name: issue_comment_reactions
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -2559,24 +2547,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: issue_comment_reactions
+        alias_name: issue_comment_reactions
         selected: true
     - stream:
         name: issue_events
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -2819,27 +2806,26 @@ configuration:
             repository:
               type:
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - created_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - created_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: issue_events
+        alias_name: issue_events
         selected: true
     - stream:
         name: issue_labels
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -2874,24 +2860,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: issue_labels
+        alias_name: issue_labels
         selected: true
     - stream:
         name: issue_milestones
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -3039,27 +3024,26 @@ configuration:
               type:
               - 'null'
               - integer
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: issue_milestones
+        alias_name: issue_milestones
         selected: true
     - stream:
         name: issue_reactions
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -3162,24 +3146,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: issue_reactions
+        alias_name: issue_reactions
         selected: true
     - stream:
         name: issues
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -3708,27 +3691,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: issues
+        alias_name: issues
         selected: true
     - stream:
         name: organizations
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -3923,24 +3905,23 @@ configuration:
               type:
               - 'null'
               - boolean
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: organizations
+        alias_name: organizations
         selected: true
     - stream:
         name: outside_collaborators
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -4036,24 +4017,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: outside_collaborators
+        alias_name: outside_collaborators
         selected: true
     - stream:
         name: project_cards
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/schema#
           properties:
@@ -4182,27 +4162,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: project_cards
+        alias_name: project_cards
         selected: true
     - stream:
         name: project_columns
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -4248,27 +4227,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: project_columns
+        alias_name: project_columns
         selected: true
     - stream:
         name: projects
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -4402,27 +4380,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: projects
+        alias_name: projects
         selected: true
     - stream:
         name: pull_request_comment_reactions
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -4525,24 +4502,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: pull_request_comment_reactions
+        alias_name: pull_request_comment_reactions
         selected: true
     - stream:
         name: pull_request_commits
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -4816,24 +4792,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - sha
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - sha
-        aliasName: pull_request_commits
+        alias_name: pull_request_commits
         selected: true
     - stream:
         name: pull_request_stats
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -4978,27 +4953,26 @@ configuration:
               type:
               - 'null'
               - boolean
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: pull_request_stats
+        alias_name: pull_request_stats
         selected: true
     - stream:
         name: pull_requests
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -5887,27 +5861,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: pull_requests
+        alias_name: pull_requests
         selected: true
     - stream:
         name: releases
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -6120,27 +6093,26 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - created_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - created_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: releases
+        alias_name: releases
         selected: true
     - stream:
         name: repositories
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -6558,24 +6530,23 @@ configuration:
               type:
               - 'null'
               - integer
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: repositories
+        alias_name: repositories
         selected: true
     - stream:
         name: review_comments
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -6785,27 +6756,26 @@ configuration:
               type:
               - 'null'
               - integer
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: review_comments
+        alias_name: review_comments
         selected: true
     - stream:
         name: reviews
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -6952,27 +6922,26 @@ configuration:
             pull_request_updated_at:
               type: string
               format: date-time
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - pull_request_updated_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - pull_request_updated_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: reviews
+        alias_name: reviews
         selected: true
     - stream:
         name: stargazers
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -7065,27 +7034,26 @@ configuration:
               - 'null'
               - string
               format: date-time
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
         - incremental
-        sourceDefinedCursor: true
-        defaultCursorField:
+        source_defined_cursor: true
+        default_cursor_field:
         - starred_at
-        sourceDefinedPrimaryKey:
+        source_defined_primary_key:
         - - user_id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField:
+        sync_mode: full_refresh
+        cursor_field:
         - starred_at
-        destinationSyncMode: append
-        primaryKey:
+        destination_sync_mode: append
+        primary_key:
         - - user_id
-        aliasName: stargazers
+        alias_name: stargazers
         selected: true
     - stream:
         name: tags
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -7121,26 +7089,25 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - repository
         - - name
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - repository
         - - name
-        aliasName: tags
+        alias_name: tags
         selected: true
     - stream:
         name: team_members
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -7218,26 +7185,25 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
         - - team_slug
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
         - - team_slug
-        aliasName: team_members
+        alias_name: team_members
         selected: true
     - stream:
         name: team_memberships
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -7257,24 +7223,23 @@ configuration:
               type: string
             organization:
               type: string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - url
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - url
-        aliasName: team_memberships
+        alias_name: team_memberships
         selected: true
     - stream:
         name: team_repositories
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -7708,26 +7673,25 @@ configuration:
               type:
               - 'null'
               - integer
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
         - - team_slug
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
         - - team_slug
-        aliasName: team_repositories
+        alias_name: team_repositories
         selected: true
     - stream:
         name: team_repository_permissions
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -7780,26 +7744,25 @@ configuration:
                   - boolean
             organization:
               type: string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
         - - team_slug
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
         - - team_slug
-        aliasName: team_repository_permissions
+        alias_name: team_repository_permissions
         selected: true
     - stream:
         name: teams
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-07/schema#
           properties:
@@ -7859,24 +7822,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: teams
+        alias_name: teams
         selected: true
     - stream:
         name: users
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -7958,24 +7920,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: users
+        alias_name: users
         selected: true
     - stream:
         name: workflow_runs
-        jsonSchema:
+        json_schema:
           type: object
           "$schema": http://json-schema.org/draft-04/schema#
           properties:
@@ -8649,24 +8610,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: workflow_runs
+        alias_name: workflow_runs
         selected: true
     - stream:
         name: workflows
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -8710,24 +8670,23 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: workflows
+        alias_name: workflows
         selected: true
     - stream:
         name: deploy_keys
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -8758,24 +8717,23 @@ configuration:
               - boolean
             repository:
               type: string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - id
-        aliasName: deploy_keys
+        alias_name: deploy_keys
         selected: true
     - stream:
         name: repository_action_secrets
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -8797,26 +8755,25 @@ configuration:
             repository:
               type:
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - repository
         - - name
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - repository
         - - name
-        aliasName: repository_action_secrets
+        alias_name: repository_action_secrets
         selected: true
     - stream:
         name: organization_action_secrets
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -8845,26 +8802,25 @@ configuration:
               type:
               - 'null'
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - organization
         - - name
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - organization
         - - name
-        aliasName: organization_action_secrets
+        alias_name: organization_action_secrets
         selected: true
     - stream:
         name: organization_secret_selected_repositories
-        jsonSchema:
+        json_schema:
           type:
           - 'null'
           - object
@@ -8892,25 +8848,23 @@ configuration:
             secret_name:
               type:
               - string
-        supportedSyncModes:
+        supported_sync_modes:
         - full_refresh
-        sourceDefinedCursor:
-        defaultCursorField: []
-        sourceDefinedPrimaryKey:
+        source_defined_cursor: false
+        default_cursor_field: []
+        source_defined_primary_key:
         - - organization
         - - secret_name
         - - id
-        namespace:
       config:
-        syncMode: full_refresh
-        cursorField: []
-        destinationSyncMode: append
-        primaryKey:
+        sync_mode: full_refresh
+        cursor_field: []
+        destination_sync_mode: append
+        primary_key:
         - - organization
         - - secret_name
         - - id
-        aliasName: organization_secret_selected_repositories
+        alias_name: organization_secret_selected_repositories
         selected: true
-  schedule:
   status: active
-  resourceRequirements:
+  resource_requirements: {}

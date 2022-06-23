@@ -78,7 +78,7 @@ cat templates/destination.yaml.templ | envsubst '$BIGQUERY_DATASET_ID $BIGQUERY_
 
 echo 'Running Octavia'
 function octavia() {
-    docker run -i --rm -v $(pwd)/work_files/config:/home/octavia-project --network host --env-file ~/.octavia --user $(id -u):$(id -g) airbyte/octavia-cli:0.36.4-alpha $@
+    docker run -i --rm -v $(pwd)/work_files/config:/home/octavia-project --network host --env-file ~/.octavia --user $(id -u):$(id -g) airbyte/octavia-cli:0.39.21-alpha $@
 }
 # Now we need to run octavia and create/update source and destination
 octavia apply --force --file ./sources/github_custom/configuration.yaml
@@ -99,8 +99,8 @@ rm ./work_files/config/sources/github_custom/configuration.yaml
 rm ./work_files/config/destinations/bigquery/configuration.yaml
 
 # Extract source and destination identifiers so that we can use them in the connection file
-export SOURCE_ID=$(cat ./work_files/config/sources/github_custom/state.yaml | yq ".resource_id")
-export DESTINATION_ID=$(cat ./work_files/config/destinations/bigquery/state.yaml | yq ".resource_id")
+export SOURCE_ID=$(cat ./work_files/config/sources/github_custom/state*.yaml | yq ".resource_id")
+export DESTINATION_ID=$(cat ./work_files/config/destinations/bigquery/state*.yaml | yq ".resource_id")
 
 # We also need to create an operation for connection
 # First, get workspace id
@@ -140,4 +140,4 @@ then
     exit 1
 fi
 # Save connection id in a file, so that we can use it
-cat ./work_files/config/connections/github_to_bigquery/state.yaml | yq ".resource_id" > ./work_files/connection_id
+cat ./work_files/config/connections/github_to_bigquery/state*.yaml | yq ".resource_id" > ./work_files/connection_id
