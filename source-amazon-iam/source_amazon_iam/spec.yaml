@@ -1,0 +1,22 @@
+documentationUrl: https://docsurl.com
+connectionSpecification:
+  $schema: http://json-schema.org/draft-07/schema#
+  title: Amazon Iam Spec
+  type: object
+  required:
+    - aws_access_key_id
+    - aws_secret_access_key
+  additionalProperties: false
+  properties:
+    aws_access_key_id:
+      type: string
+      description: AWS access key id
+    aws_secret_access_key:
+      type: string
+      description: AWS secret access key
+    organization_id:
+      type: string
+      description: AWS Organization ID
+    root_id:
+      type: string
+      description: Root is the parent organizational unit (OU) for all accounts and other OUs in your organization.
